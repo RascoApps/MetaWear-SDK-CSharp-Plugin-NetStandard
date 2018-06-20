@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MbientLab.MetaWear.NetStandard</AssemblyName>
+    <RootNamespace>MbientLab.MetaWear.NetStandard</RootNamespace>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\MbientLab.MetaWear.NetStandard.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MetaWear.CSharp" Version="[1.0.15, 2.0)" />
+    <PackageReference Include="Warble.Net" Version="[1.0.0, 2.0)" />
+  </ItemGroup>
 
 </Project>
