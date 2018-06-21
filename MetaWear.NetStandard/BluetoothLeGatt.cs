@@ -13,14 +13,15 @@ namespace MbientLab.MetaWear.NetStandard {
         private TaskCompletionSource<bool> DcTaskSource;
 
         public BluetoothLeGatt(string mac, string hci = null) {
-            WarbleGatt = new Gatt(mac, hci);
-            WarbleGatt.OnDisconnect = status => {
-                if (DcTaskSource != null) {
-                    var copy = DcTaskSource;
-                    DcTaskSource = null;
-                    copy.SetResult(true);
+            WarbleGatt = new Gatt(mac, hci) {
+                OnDisconnect = status => {
+                    if (DcTaskSource != null) {
+                        var copy = DcTaskSource;
+                        DcTaskSource = null;
+                        copy.SetResult(true);
+                    }
+                    OnDisconnect?.Invoke();
                 }
-                OnDisconnect?.Invoke();
             };
 
             BluetoothAddress = Convert.ToUInt64(mac.Replace(":", ""), 16);

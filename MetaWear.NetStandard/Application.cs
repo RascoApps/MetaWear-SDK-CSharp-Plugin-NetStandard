@@ -46,14 +46,15 @@ namespace MbientLab.MetaWear.NetStandard {
         /// <summary>
         /// Instantiates an <see cref="IMetaWearBoard"/> object corresponding to mac address
         /// </summary>
-        /// <param name="mac"></param>
+        /// <param name="mac">Mac address of the target device</param>
+        /// <param name="hci">Mac address of the BT adapter to use with the remote device, only applicable on Linux</param>
         /// <returns></returns>
-        public static IMetaWearBoard GetMetaWearBoard(string mac) {
+        public static IMetaWearBoard GetMetaWearBoard(string mac, string hci = null) {
             if (btleDevices.TryGetValue(mac, out Tuple<MetaWearBoard, BluetoothLeGatt, IO> value)) {
                 return value.Item1;
             }
 
-            var gatt = new BluetoothLeGatt(mac);
+            var gatt = new BluetoothLeGatt(mac, hci);
             var io = new IO(mac);
             value = Tuple.Create(new MetaWearBoard(gatt, io), gatt, io);
             btleDevices.Add(mac, value);
