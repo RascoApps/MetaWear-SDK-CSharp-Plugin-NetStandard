@@ -76,9 +76,11 @@ namespace MbientLab.MetaWear.NetStandard {
         /// <param name="mac">Mac address of the information to remove</param>
         /// <returns></returns>
         public static async Task ClearDeviceCacheAsync(string mac) {
-            var path = Path.Combine(CacheRoot, mac);
+            var path = Path.Combine(CacheRoot, mac.Replace(":", ""));
 
-            File.Delete(path);
+            if (Directory.Exists(path)) {
+                Directory.Delete(path, true);
+            }
             await Task.CompletedTask;
         }
     }
