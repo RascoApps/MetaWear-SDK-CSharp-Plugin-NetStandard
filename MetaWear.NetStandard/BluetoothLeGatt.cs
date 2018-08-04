@@ -15,12 +15,8 @@ namespace MbientLab.MetaWear.NetStandard {
         public BluetoothLeGatt(string mac, string hci = null) {
             WarbleGatt = new Gatt(mac, hci) {
                 OnDisconnect = status => {
-                    if (DcTaskSource != null) {
-                        var copy = DcTaskSource;
-                        DcTaskSource = null;
-                        copy.SetResult(true);
-                    }
                     OnDisconnect?.Invoke();
+                    DcTaskSource?.TrySetResult(true);
                 }
             };
 
@@ -29,9 +25,8 @@ namespace MbientLab.MetaWear.NetStandard {
 
         public Task DisconnectAsync() {
             DcTaskSource = new TaskCompletionSource<bool>();
-            var copy = DcTaskSource;
             WarbleGatt.Disconnect();
-            return copy.Task;
+            return DcTaskSource.Task;
         }
 
         public async Task DiscoverServicesAsync() {
@@ -44,7 +39,7 @@ namespace MbientLab.MetaWear.NetStandard {
             if (value == null) {
                 throw new InvalidOperationException(string.Format("Characteristic '{0}' does not exist", gattChar.Item2));
             } else {
-                await value.EnableNotifications();
+                await value.EnableNotificationsAsync();
                 value.OnNotificationReceived = bytes => handler(bytes);
             }
         }

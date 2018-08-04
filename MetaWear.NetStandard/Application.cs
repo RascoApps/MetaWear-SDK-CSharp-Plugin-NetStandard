@@ -31,7 +31,6 @@ namespace MbientLab.MetaWear.NetStandard {
             }
 
             public Task LocalSaveAsync(string key, byte[] data) {
-                Console.WriteLine(Directory.GetCurrentDirectory());
                 var root = Path.Combine(Directory.GetCurrentDirectory(), CacheRoot, MacAddr);
                 if (!Directory.Exists(root)) {
                     Directory.CreateDirectory(root);

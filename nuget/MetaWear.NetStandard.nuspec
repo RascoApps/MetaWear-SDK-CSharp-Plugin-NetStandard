@@ -3,7 +3,7 @@
   <metadata minClientVersion="4.1">
     <id>MetaWear.CSharp.NetStandard</id>
     <title>MetaWear C# SDK (NetStandard)</title>
-    <version>1.0.0</version>
+    <version>1.0.5</version>
     <authors>MbientLab</authors>
     <owners>MbientLab</owners>
     <licenseUrl>https://raw.githubusercontent.com/mbientlab/MetaWear-SDK-CSharp/master/LICENSE.md</licenseUrl>
@@ -17,7 +17,7 @@
     <dependencies>
       <group>
         <dependency id="MetaWear.CSharp" version="[1.0.15, 2.0)" />
-        <dependency id="Warble.Net" version="[1.0.0, 2.0)" />
+        <dependency id="Warble.Net" version="[1.1.1, 2.0)" />
       </group>
     </dependencies>
   </metadata>
